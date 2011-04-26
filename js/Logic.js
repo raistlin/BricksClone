@@ -15,6 +15,7 @@ var giftChance = 95;  // 15% chances of create a gift
 var maxSpeed = 10;
 var maxSpeedInit = 10;
 var giftSpeed = 5;
+var keyPressing = false;
 
 // Overloading, should work?
 function createBall()
@@ -203,11 +204,15 @@ function movePlayer()
         if ( plataforma.x + plataforma.width > board.width)
             plataforma.x = board.width - plataforma.width;
 
-        if ( plataforma.speed > 0)
-            plataforma.speed -= 2;
+        // Only decrease speed while not pressing keys
+        if ( !keyPressing)
+        {
+            if ( plataforma.speed > 0)
+                plataforma.speed -= 2;
 
-        if ( plataforma.speed < 0)
-            plataforma.speed += 2;
+            if ( plataforma.speed < 0)
+                plataforma.speed += 2;
+        }
     }
 }
 

@@ -197,9 +197,13 @@ Rectangle {
         focus: true;
 
         // Manejo del teclado
-        Keys.onLeftPressed: Logic.velocidadJugador(-Logic.maxSpeed);
-        Keys.onRightPressed: Logic.velocidadJugador(Logic.maxSpeed);
+        Keys.onLeftPressed: { Logic.velocidadJugador(-Logic.maxSpeed); Logic.keyPressing = true; }
+        Keys.onRightPressed: { Logic.velocidadJugador(Logic.maxSpeed); Logic.keyPressing = true; }
         Keys.onEscapePressed: Qt.quit();
+        Keys.onReleased: {
+            if (event.key == Qt.Key_Left || event.key == Qt.Key_Right)
+                Logic.keyPressing  = false;
+        }
 
         MouseArea {
             anchors.fill: parent;
