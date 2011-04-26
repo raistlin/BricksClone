@@ -28,7 +28,6 @@ Image {
             when: root.vida < 1
             PropertyChanges {
                 target: root;
-                //source: "pics/bloque_explode.png";
                 opacity: 0
             }
         }
@@ -36,7 +35,7 @@ Image {
 
     transitions: [
         Transition {
-            from: ""
+            from: "*"
             to: "EXPLODE"
             NumberAnimation { target: root; property: "opacity"; duration: 1000 }
 

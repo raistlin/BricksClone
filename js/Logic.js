@@ -684,14 +684,13 @@ function createLevel()
 
 function breakBrick(whatBrick)
 {
-    // There may be understructible bricks
-    if ( whatBrick.vida < 100)
+    // There may be non-destructible bricks
+    if ( whatBrick.vida > 0 && whatBrick.vida < 100 )
     {
         whatBrick.vida--;
 
         if (whatBrick.vida == 0)
         {
-            whatBrick.state = "EXPLODE";
             if (rand(100) < giftChance)
             {
                 createGift (whatBrick.x, whatBrick.y);
