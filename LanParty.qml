@@ -136,11 +136,11 @@ Rectangle {
 
     Rectangle {
         id: board
-        x:5
-        y:40
+        x: 5
+        y: 40
 
-        width:790
-        height:555
+        width:parent.width - 10
+        height:parent.height - 45
         color: "grey"
 
         // Nuestro jugador
