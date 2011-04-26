@@ -4,7 +4,7 @@ Image {
     id: rootGift;
     fillMode: Image.PreserveAspectFit;
     property variant validStates: ["fast", "slow", "curse", "extra_ball", "extra_gift"];
-    state: "fast";
+    state: "setting up";
 
     states: [
         State {
@@ -44,5 +44,10 @@ Image {
         }
     ]
 
-    Component.onCompleted: { state: "fast" }
+    Behavior on y {
+        enabled:  state != "setting up";
+        NumberAnimation { duration: 50; }
+    }
+
+    Component.onCompleted: { state: "setting up" }
 }

@@ -550,6 +550,7 @@ function checkCollisions()
             }
 
             // We put gift out of vision
+            gift[i].state = "setting up";
             gift[i].y = board.height + 1;
         }
 
