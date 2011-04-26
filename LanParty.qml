@@ -1,4 +1,4 @@
-import Qt 4.7
+import QtQuick 1.0
 //import QtMobility.sensors 1.1
 
 import "js/Logic.js" as Logic
@@ -185,15 +185,15 @@ Rectangle {
             onTriggered: Logic.triggerNextLevel();
         }
 
-//        Accelerometer  {
-//            id: accelerometer
-//            Component.onCompleted: start()
-//            onReadingChanged: {
-//                var r = reading
-//                Logic.scheduleDirection((r.x) * -Logic.maxSpeed);
+        /*Accelerometer  {
+            id: accelerometer
+            Component.onCompleted: start()
+            onReadingChanged: {
+               var r = reading
+                Logic.velocidadJugador((r.x) * -Logic.maxSpeed);
+            }
+        }*/
 
-//            }
-//        }
         focus: true;
 
         // Manejo del teclado
