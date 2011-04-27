@@ -5,7 +5,7 @@ import "js/Logic.js" as Logic
 
 Rectangle {
     id: interfaz
-    width: 800
+    width: 400
     height: 600
 
     Text {
