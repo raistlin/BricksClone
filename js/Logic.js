@@ -440,7 +440,7 @@ function checkCollisionBrickBall(thisBrick, thisBall)
     Funcion más compleja modifica ella misma trayectoria de la bola.
     Devuelve 1 si ha colisionado, 0 en otro caso
 */
-function comprobarColisionJugador(cuadrado, bola)
+function checkCollisionPlatformBall(cuadrado, bola)
 {
     var colisionX = 0;
     var colisionRealX = 0;
@@ -493,7 +493,7 @@ function checkCollisions()
 
         // Ball against player collisions
         var collision;
-        collision = comprobarColisionJugador(plataforma, ball[i]);
+        collision = checkCollisionPlatformBall(plataforma, ball[i]);
 
         if (collision)
             addScore (5);
@@ -564,7 +564,7 @@ function checkCollisions()
         if (!gift[i])
             continue;
 
-        if (comprobarColisionJugador(plataforma, gift[i]))
+        if (checkCollisionPlatformBall(plataforma, gift[i]))
         {
             if(gift[i].state == "fast")
             {
