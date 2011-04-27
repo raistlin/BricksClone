@@ -64,6 +64,8 @@ function createBall (x, y)
         ball[index].y = ball[0].y;
         ball[index].angulo = ball[0].angulo + 0.5;
     }
+
+    ball[index].state = "running";
 }
 
 
@@ -78,6 +80,50 @@ function destroyBalls()
         }
     }
     firstBall = true;
+}
+
+
+function forceBallPosition(whatBall, x, y)
+{
+    if (!whatBall)
+        return;
+    var oldState = whatBall.state;
+
+    whatBall.state = "setting up";
+    whatBall.x = x;
+    whatBall.y = y;
+    whatBall.state = oldState;
+}
+
+
+function checkConstraintsBall (whatBall)
+{
+    if (!whatBall)
+        return;
+
+    if (whatBall.x + whatBall.speedX < 0)
+    {
+        forceBallPosition ( whatBall, 0, whatBall.y);
+
+        if (whatBall.speedX < 0)
+            whatBall.speedX *= -1;
+    }
+
+    if (whatBall.x + whatBall.speedX + whatBall.width > board.width)
+    {
+        forceBallPosition (whatBall, board.width - whatBall.width, whatBall.y);
+
+        if ( whatBall.speedX > 0)
+            whatBall.speedX *= -1;
+    }
+
+    if (whatBall.y + whatBall.speedY < 0)
+    {
+        forceBallPosition (whatBall, whatBall.x, 0);
+
+        if (whatBall.speedY < 0)
+            whatBall.speedY *= -1;
+    }
 }
 
 
@@ -482,17 +528,8 @@ function checkCollisions()
         }
 
 
-        // Por ultimo comprobar colisiones con los laterales
-        if ((ball[i].x < 0) || (ball[i].x > board.width - ball[i].width))
-        {
-            ball[i].speedX *= -1;
-        }
-
-        // Chocar arriba implica volver a caer
-        if (ball[i].y <= 0)
-        {
-            ball[i].speedY *= -1;
-        }
+        // Realistic checks
+        checkConstraintsBall(ball[i]);
 
         // Chocar abajo significa la muerte
         if (ball[i].y + ball[i].height > board.height)

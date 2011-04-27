@@ -7,7 +7,7 @@ Image {
     property double totalSpeed: 6
     property double speedX: 1
     property double speedY: 6
-    property string estado: "NORMAL"
+    state: "setting up"
 
     source: "pics/bola.png"
     width: 10;
@@ -15,5 +15,23 @@ Image {
 
     fillMode: Image.PreserveAspectFit;
 
+    states: [
+        State {
+            name: "setting up"
+            },
+        State {
+            name: "running"
+        }]
 
+    Behavior on x {
+        enabled: state != "setting up";
+        NumberAnimation { duration: 50 }
+    }
+
+    Behavior on y {
+        enabled: state != "setting up";
+        NumberAnimation { duration: 50 }
+    }
+
+    Component.onCompleted: { state: "setting up" }
 }
