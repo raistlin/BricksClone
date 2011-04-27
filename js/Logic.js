@@ -96,6 +96,7 @@ function forceBallPosition(whatBall, x, y)
 }
 
 
+// Check constraints of ball against borders of board
 function checkConstraintsBall (whatBall)
 {
     if (!whatBall)
