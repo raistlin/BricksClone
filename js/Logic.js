@@ -345,26 +345,22 @@ function pointToLineDistance(s1,s2, p) {
  *  3 -> Colision por la derecha
  *  4 -> Colision por la izquierda
  */
-function comprobarColision(cuadrado, bola)
+function checkCollisionBrickBall(thisBrick, thisBall)
 {
-    var tl = Qt.point (cuadrado.x               , cuadrado.y);
-    var tr = Qt.point (cuadrado.x+cuadrado.width, cuadrado.y)
-    var bl = Qt.point (cuadrado.x               , cuadrado.y+cuadrado.height);
-    var br = Qt.point (cuadrado.x+cuadrado.width, cuadrado.y+cuadrado.height)
-    var centroBola = Qt.point(bola.x + bola.width/2, bola.y +bola.height/2);
+    var tl = Qt.point (thisBrick.x                , thisBrick.y);
+    var tr = Qt.point (thisBrick.x+thisBrick.width, thisBrick.y)
+    var bl = Qt.point (thisBrick.x                , thisBrick.y+thisBrick.height);
+    var br = Qt.point (thisBrick.x+thisBrick.width, thisBrick.y+thisBrick.height)
+    var centerBall = Qt.point(thisBall.x + thisBall.width/2, thisBall.y + thisBall.height/2);
 
-    var radio = bola.width / 2;
+    var radiusBall = thisBall.width / 2;
 
-    var colisionX = 0;
-    var colisionRealX = 0;
-    var colisionY = 0;
+    var dt = pointToLineDistance(tl, tr, centerBall);
+    var dl = pointToLineDistance(tl, bl, centerBall);
+    var dr = pointToLineDistance(tr, br, centerBall);
+    var db = pointToLineDistance(bl, br, centerBall);
 
-    var dt = pointToLineDistance(tl, tr, centroBola);
-    var dl = pointToLineDistance(tl, bl, centroBola);
-    var dr = pointToLineDistance(tr, br, centroBola);
-    var db = pointToLineDistance(bl, br, centroBola);
-
-    if (dt > radio && dl > radio && dr > radio && db > radio)
+    if (dt > radiusBall && dl > radiusBall && dr > radiusBall && db > radiusBall)
         return 0;
 
 
@@ -498,7 +494,7 @@ function checkCollisions()
         {
             if (bricks[j] && (bricks[j].vida > 0))
             {
-                colisiona = comprobarColision(bricks[j], ball[i]);
+                colisiona = checkCollisionBrickBall(bricks[j], ball[i]);
 
                 if (colisiona == 1 && ball[i].speedY > 0)
                     ball[i].speedY *= -1;
