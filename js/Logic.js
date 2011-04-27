@@ -338,12 +338,12 @@ function pointToLineDistance(s1,s2, p) {
  * cuando hay colision, calcular que lado del cuadrado está mas cerca del centro
  * de la bola, pero por razones de tiempo, esto nos vale si no somos muy exigentes.
  *
- * Comprobar colision devuelve:
- *  0 -> No hay colision
- *  1 -> Colision por arriba
- *  2 -> Colision por abajo
- *  3 -> Colision por la derecha
- *  4 -> Colision por la izquierda
+ * Return:
+ *  0 -> No collision
+ *  1 -> Collision ball at top
+ *  2 -> Collision ball at bottom
+ *  3 -> Collision ball at right
+ *  4 -> Collision ball at left
  */
 function checkCollisionBrickBall(thisBrick, thisBall)
 {
