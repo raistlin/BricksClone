@@ -598,7 +598,7 @@ function checkCollisions()
             }
 
             // Extra live
-            if(gift[i].state == "extra_live")
+            if(gift[i].state == "extra_gift")
             {
                 lives++;
                 livesText.text = lives;
