@@ -242,14 +242,20 @@ function movePlayer()
 {
     if ( plataforma )
     {
-        plataforma.x += plataforma.speed;
+        var next_x = plataforma.x + plataforma.speed;
 
-        // Comprobaciones
-        if ( plataforma.x < 0)
-            plataforma.x = 0
-
-        if ( plataforma.x + plataforma.width > board.width)
+        // Checks
+        if (next_x < 0)
+        {
+            plataforma.x = 0;
+        }
+        else if ( next_x + plataforma.width > board.width)
+        {
             plataforma.x = board.width - plataforma.width;
+        }
+        else
+            plataforma.x = next_x;
+
 
         // Only decrease speed while not pressing keys
         if ( !keyPressing)
