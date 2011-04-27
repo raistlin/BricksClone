@@ -705,6 +705,7 @@ function startGame ()
 
 function createLevel()
 {
+    destroyBricks();
     if (level == 0)
     {
         maxSpeed = maxSpeedInit;
@@ -712,15 +713,15 @@ function createLevel()
 
     if (gameType == "normal")
     {
-        var rows = 2 + level;
+        var xBricks = Math.round(board.width / 60) - 2;
+        var xOffset = (board.width - xBricks*60) / 2;
+        var yBricks = Math.min(2 + level, Math.round((board.height-120)/30));
 
-        if (rows > 10) rows = 10;
-
-        for (var i = 0; i < 10; i++)
+        for (var i = 0; i < xBricks; i++)
         {
-            for (var j = 0; j < rows; j++)
+            for (var j = 0; j < yBricks; j++)
             {
-                createBrick(i * 60 + 60, j * 30 + 31, level+1);
+                createBrick(i * 60 + xOffset, j * 30 + 31, level+1);
             }
         }
     }
