@@ -353,6 +353,9 @@ function checkCollisionBrickBall(thisBrick, thisBall)
     var br = Qt.point (thisBrick.x+thisBrick.width, thisBrick.y+thisBrick.height)
     var centerBall = Qt.point(thisBall.x + thisBall.width/2, thisBall.y + thisBall.height/2);
 
+    centerBall.x += thisBall.speedX;
+    centerBall.y += thisBall.speedY;
+
     var radiusBall = thisBall.width / 2;
 
     var dt = pointToLineDistance(tl, tr, centerBall);
@@ -483,10 +486,10 @@ function checkCollisions()
             continue;
 
         // Ball against player collisions
-        var colisiona;
-        colisiona = comprobarColisionJugador(plataforma, ball[i]);
+        var collision;
+        collision = comprobarColisionJugador(plataforma, ball[i]);
 
-        if (colisiona)
+        if (collision)
             addScore (5);
 
 
@@ -494,21 +497,33 @@ function checkCollisions()
         {
             if (bricks[j] && (bricks[j].vida > 0))
             {
-                colisiona = checkCollisionBrickBall(bricks[j], ball[i]);
+                collision = checkCollisionBrickBall(bricks[j], ball[i]);
 
-                if (colisiona == 1 && ball[i].speedY > 0)
+                if (collision == 1 && ball[i].speedY > 0)
+                {
+                    ball[i].y = bricks[j].y;
                     ball[i].speedY *= -1;
+                }
 
-                if (colisiona == 2 && ball[i].speedY < 0)
+                if (collision == 2 && ball[i].speedY < 0)
+                {
+                    ball[i].y = bricks[j].y + bricks[j].heigth;
                     ball[i].speedY *= -1;
+                }
 
-                if (colisiona == 3 && ball[i].speedX < 0)
+                if (collision == 3 && ball[i].speedX < 0)
+                {
+                    ball[i].x = bricks[j].x + bricks[j].width;
                     ball[i].speedX *= -1;
+                }
 
-                if (colisiona == 4 && ball[i].speedX > 0)
+                if (collision == 4 && ball[i].speedX > 0)
+                {
+                    ball[i].x = bricks[j].x;
                     ball[i].speedX *= -1;
+                }
 
-                if ( colisiona > 0)
+                if ( collision > 0)
                 {
                     if (bricks[j].vida < 100)
                     {
