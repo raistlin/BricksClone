@@ -357,6 +357,11 @@ function checkCollisionBrickBall(thisBrick, thisBall)
     var tr = Qt.point (thisBrick.x+thisBrick.width, thisBrick.y)
     var bl = Qt.point (thisBrick.x                , thisBrick.y+thisBrick.height);
     var br = Qt.point (thisBrick.x+thisBrick.width, thisBrick.y+thisBrick.height)
+
+    // This is to speed up things removing lot of checks
+    if ((thisBall.y + thisBall.heigth < tl.y) || (thisBall.y > bl.y))
+        return 0;
+
     var centerBall = Qt.point(thisBall.x + thisBall.width/2, thisBall.y + thisBall.height/2);
 
     centerBall.x += thisBall.speedX;
