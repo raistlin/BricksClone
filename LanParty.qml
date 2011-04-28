@@ -199,6 +199,7 @@ Rectangle {
         // Manejo del teclado
         Keys.onLeftPressed: { Logic.velocidadJugador(-Logic.maxSpeed); Logic.keyPressing = true; }
         Keys.onRightPressed: { Logic.velocidadJugador(Logic.maxSpeed); Logic.keyPressing = true; }
+        Keys.onSpacePressed: { if (Logic.state == "running") { Logic.useSpecial(); } }
         Keys.onEscapePressed: Qt.quit();
         Keys.onReleased: {
             if (event.key == Qt.Key_Left || event.key == Qt.Key_Right)
