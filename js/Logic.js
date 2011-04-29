@@ -3,13 +3,23 @@ var level = 0;
 var lives = 3;
 var firstBall = true;
 
+// Player can shoot?
+var weapon = false;
+var weaponTimeout = 0;
+var weaponTimeoutMax = 250;
+
+// Player can 'stick' balls
+var sticky = false;
+
 var maxBalls = 10;
 var maxBricks = 100;
 var maxGifts = 32;
+var maxShots = 16;
 
 var bricks = new Array(maxBricks);
 var ball = new Array(maxBalls);
 var gift = new Array(maxGifts);
+var shots = new Array(maxShots);
 
 var points = 0;
 var state = "stopped";
@@ -154,7 +164,7 @@ function createGift(x, y)
 
     gift[index].x = x
     gift[index].y = y;
-    gift[index].state = gift[index].validStates[rand(5)]
+    gift[index].state = gift[index].validStates[rand(7)]
 }
 
 
@@ -237,8 +247,17 @@ function heartbeat()
         movePlayer();
         moveBalls();
         moveGifts();
+        moveShots();
         checkCollisions();
         checkLevelCleared();
+
+        if (weaponTimeout > 0)
+        {
+            weaponTimeout -= 50;
+
+            if (weaponTimeout < 0)
+                weaponTimeout = 0;
+        }
     }
 }
 
@@ -314,6 +333,17 @@ function moveGifts()
         //gift[i].x += rand(5);
         gift[i].y += giftSpeed;
 
+    }
+}
+
+
+function moveShots()
+{
+    for (var i = 0; i < maxShots; i++)
+    {
+        if (!shots[i])
+            continue;
+        shots[i].y -= shotSpeed;
     }
 }
 
@@ -620,6 +650,16 @@ function checkCollisions()
                 livesText.text = lives;
             }
 
+            if (gift[i].state == "sticky")
+            {
+                sticky = true;
+            }
+
+            if (gift[i].state == "weapon")
+            {
+                weapon = true;
+            }
+
             // We put gift out of vision
             gift[i].state = "setting up";
             gift[i].y = board.height + 1;
@@ -786,6 +826,11 @@ function useSpecial ()
         }
     }
 
+    // Second, if player has a weapon, shoot
+    if (weapon && weaponTimeout == 0)
+    {
+        weaponTimeout = weaponTimeoutMax;
+    }
 }
 
 

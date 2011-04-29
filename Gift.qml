@@ -3,7 +3,7 @@ import QtQuick 1.0
 Image {
     id: rootGift;
     fillMode: Image.PreserveAspectFit;
-    property variant validStates: ["fast", "slow", "curse", "extra_ball", "extra_gift"];
+    property variant validStates: ["fast", "slow", "curse", "extra_ball", "extra_gift", "sticky", "weapon"];
     state: "setting up";
 
     states: [
@@ -40,6 +40,20 @@ Image {
             PropertyChanges {
                 target: rootGift;
                 source: "pics/gift_live.png";
+            }
+        },
+        State {
+            name: "sticky"
+            PropertyChanges {
+                target: rootGift;
+                source: "pics/gift_sticky.png";
+            }
+        },
+        State {
+            name: "weapon"
+            PropertyChanges {
+                target: rootGift;
+                source: "pics/gift_weapon.png";
             }
         }
     ]
