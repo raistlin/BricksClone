@@ -2,12 +2,15 @@ var component;
 var level = 0;
 var lives = 3;
 var firstBall = true;
-var maxBalls = 5;
+
+var maxBalls = 10;
 var maxBricks = 100;
 var maxGifts = 32;
+
 var bricks = new Array(maxBricks);
 var ball = new Array(maxBalls);
 var gift = new Array(maxGifts);
+
 var points = 0;
 var state = "stopped";
 var gameType = "normal";
@@ -787,6 +790,8 @@ function checkLevelCleared()
 
     if (bricksLeft == 0)
     {
+        destroyBalls();
+        destroyGifts();
         state = "levelCleared";
         level++;
         nextLevel.text = "Ha superado el nivel " + level;
