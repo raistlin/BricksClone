@@ -20,6 +20,9 @@ Image {
             name: "setting up"
             },
         State {
+            name: "sticked"
+        },
+        State {
             name: "running"
         }]
 

@@ -57,7 +57,8 @@ function createBall (x, y)
             ball[index].speedY *= -1;
         }
         // Por definir
-        ball[index].angulo = 0;
+        //ball[index].angulo = 0;
+        ball[index].state = "sticked";
         firstBall = false;
     }
     else
@@ -66,9 +67,9 @@ function createBall (x, y)
         ball[index].x = ball[0].x;
         ball[index].y = ball[0].y;
         ball[index].angulo = ball[0].angulo + 0.5;
+        ball[index].state = "running";
     }
 
-    ball[index].state = "running";
 }
 
 
@@ -280,17 +281,24 @@ function moveBalls()
         if (!ball[i])
             continue;
 
-        // Incrementamos un poco la velocidad de movimiento
-        ball[i].totalSpeed += 0.001;
+        if (ball[i].state != "sticked")
+        {
+            // Increase overall movement speed
+            ball[i].totalSpeed += 0.001;
 
-        // Debería de convertir el total speed en speedX y speedY
-        // pero no tengo tiempo bastante :(
-        ball[i].speedX += 0.0005;
-        ball[i].speedY += 0.0005;
+            // Debería de convertir el total speed en speedX y speedY
+            // pero no tengo tiempo bastante :(
+            ball[i].speedX += 0.0005;
+            ball[i].speedY += 0.0005;
 
-        ball[i].x += ball[i].speedX;
-        ball[i].y += ball[i].speedY;
-
+            ball[i].x += ball[i].speedX;
+            ball[i].y += ball[i].speedY;
+        }
+        else
+        {
+            ball[i].x = plataforma.x + plataforma.width / 2 - ball[i].width / 2;
+            ball[i].y = plataforma.y - ball[i].height;
+        }
     }
 }
 
@@ -705,7 +713,6 @@ function startGame ()
     // Creamos una bola
     createBall();
 
-
     state = "started";
     heartbeat.running = true;
 }
@@ -768,6 +775,17 @@ function breakBrick(whatBrick)
 
 function useSpecial ()
 {
+    // First, unstick all sticked balls
+    for (var i = 0; i < maxBalls; i++)
+    {
+        if (!ball[i])
+            continue;
+        if(ball[i].state == "sticked")
+        {
+            ball[i].state = "running";
+        }
+    }
+
 }
 
 
