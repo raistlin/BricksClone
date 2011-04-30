@@ -233,6 +233,61 @@ function destroyBricks ()
 }
 
 
+// Creates two shots, one at every 1/5 of platform length
+function createShots()
+{
+    createShot(platform.x + platform.width / 5);
+    createShot(platform.x + platform.width * 4 / 5);
+}
+
+// Creates one shot, y = platform.y
+function createShot(x)
+{
+    var index = -1;
+    for (var i = 0; i < maxShots; i++)
+    {
+        if (!shot[i])
+        {
+            index = i;
+            break;
+        }
+    }
+
+    if (index == -1)
+        return;
+
+    component = Qt.createComponent("Shot.qml");
+    shots[index] = component.createObject(board);
+    shots[index].x = x;
+    shots[index].y = platform.y;
+    shots[index].state = "running";
+
+}
+
+function destroyShot(whatIndex)
+{
+    // Check valid index
+    if (whatIndex > -1 && whatIndex < shots.length)
+    {
+        // Check shot exists
+        if (!shots[whatIndex])
+            return;
+
+        // Destroy!
+        shots[whatIndex].destroy;
+        shots[whatIndex] = null;
+    }
+}
+
+function destroyShots()
+{
+    for(var i = 0; i < maxShots; i++)
+    {
+        destroyShot(i);
+    }
+}
+
+
 function velocidadJugador(velocidad)
 {
     if ( plataforma ) {
@@ -344,6 +399,11 @@ function moveShots()
         if (!shots[i])
             continue;
         shots[i].y -= shotSpeed;
+
+        if (shots[i].y + shots[i].height < 0)
+        {
+            destroyShot(i);
+        }
     }
 }
 
