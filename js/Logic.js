@@ -16,6 +16,9 @@ var maxBricks = 100;
 var maxGifts = 32;
 var maxShots = 16;
 
+var brickWidth = 47;
+var brickHeight = 24;
+
 var bricks = new Array(maxBricks);
 var ball = new Array(maxBalls);
 var gift = new Array(maxGifts);
@@ -213,7 +216,8 @@ function createBrick (posx, posy, thoughness)
         bricks[index] = component.createObject(board);
         bricks[index].x = posx;
         bricks[index].y = posy;
-        bricks[index].source = "pics/bloque_" + thoughness + ".png";
+        //bricks[index].source = "pics/bloque_" + thoughness + ".png";
+        bricks[index].vida = thoughness;
         return 0;
     }
     return 1;
@@ -828,15 +832,15 @@ function createLevel()
 
     if (gameType == "normal")
     {
-        var xBricks = Math.round(board.width / 60) - 2;
-        var xOffset = (board.width - xBricks*60) / 2;
-        var yBricks = Math.min(2 + level, Math.round((board.height-120)/30));
+        var xBricks = Math.round(board.width / brickWidth) - 2;
+        var xOffset = (board.width - xBricks*brickWidth) / 2;
+        var yBricks = Math.min(2 + level, Math.round((board.height-120)/brickHeight));
 
         for (var i = 0; i < xBricks; i++)
         {
             for (var j = 0; j < yBricks; j++)
             {
-                createBrick(i * 60 + xOffset, j * 30 + 31, level+1);
+                createBrick(i * brickWidth + xOffset, j * brickHeight + 15, level+1);
             }
         }
     }

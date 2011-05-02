@@ -6,29 +6,44 @@ Image {
     property int vida: 1
     state: "NORMAL"
 
-    source: "pics/bloque.png"
-
-    width:60;
-    height:30;
+    source: "pics/green_brick.png"
 
     fillMode: Image.PreserveAspectFit
 
     states: [
-        State {
-            name: "NORMAL"
-            when: root.vida > 0
-            PropertyChanges {
-                target: root;
-                opacity: 1;
-            }
-        },
-
         State {
             name: "EXPLODE"
             when: root.vida < 1
             PropertyChanges {
                 target: root;
                 opacity: 0
+            }
+        },
+        State {
+            name: "One";
+            when: root.vida == 1;
+            PropertyChanges {
+                target: root;
+                source: "pics/green_brick.png"
+
+            }
+        },
+        State {
+            name: "Two";
+            when: root.vida == 2;
+            PropertyChanges {
+                target: root;
+                source: "pics/yellow_brick.png"
+
+            }
+        },
+        State {
+            name: "Three"
+            when: root.vida = 3;
+            PropertyChanges {
+                target: root;
+                source: "pics/red_brick.png"
+
             }
         }
     ]
